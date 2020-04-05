@@ -1,5 +1,6 @@
-module Main exposing (..)
+-- port module Main exposing (..)
 
+module Main exposing (..)
 import Browser
 import Browser.Events exposing (onAnimationFrameDelta)
 import Html exposing (Html, br, button, div, h1, hr, p, text)
@@ -11,6 +12,8 @@ import Random
 import Random.List exposing (shuffle)
 import Time
 
+
+import Json.Encode as E
 
 
 {-
@@ -38,20 +41,22 @@ type alias Model =
     , gameState : GameState
     , currentNumber : Int
     , numbers : List Int
+    , currentLowScore : Float
     }
 
 
 initialModel : Model
 initialModel =
-    { timer = 0, gameState = NotStarted, currentNumber = 0, numbers = [] }
+    { timer = 0, gameState = NotStarted, currentNumber = 0, numbers = [], currentLowScore = 0 }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
-
-
-
+init : (Maybe Float) -> ( Model, Cmd Msg )
+init flags =
+    case flags of 
+       Nothing ->
+         ( {initialModel | currentLowScore = 0 }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
+       Just lowestScore ->
+         ( {initialModel | currentLowScore = lowestScore}, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
 ---- Configuration ----
 
 
@@ -75,6 +80,7 @@ type Msg
     | ResetGame
     | NumberPress Int
     | RandomizeNumbers (List Int)
+    | ChangedLowScore E.Value
 
 
 type GameState
@@ -93,7 +99,7 @@ update msg model =
             ( { model | timer = model.timer + 1.0 }, Cmd.none )
 
         ResetGame ->
-            init
+            ({initialModel | currentLowScore = model.currentLowScore}, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)))
 
         NumberPress number ->
             let
@@ -118,6 +124,8 @@ update msg model =
 
         RandomizeNumbers numbers ->
             ( { model | numbers = numbers }, Cmd.none )
+        ChangedLowScore score ->
+            ( model, Cmd.none )
 
 
 
@@ -264,11 +272,18 @@ showButton model buttonNumber =
 ---- PROGRAM ----
 
 
-main : Program () Model Msg
+main : Program (Maybe Float) Model Msg
 main =
     Browser.element
         { view = view
-        , init = \_ -> init
+        , init = init
         , update = update
         , subscriptions = subscriptions
         }
+
+---- Ports -----
+-- port cache : E.Value -> Cmd msg
+
+
+-- port existingLowScore : (E.Value -> msg) -> Sub msg
+
