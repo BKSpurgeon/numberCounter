@@ -1,0 +1,11 @@
+{
+  "main.css": "/numberCounter/static/css/main.4ded5ffa.chunk.css",
+  "main.js": "/numberCounter/static/js/main.818037e1.chunk.js",
+  "main.css.map": "/numberCounter/static/css/main.4ded5ffa.chunk.css.map",
+  "main.js.map": "/numberCounter/static/js/main.818037e1.chunk.js.map",
+  "runtime~main.js": "/numberCounter/static/js/runtime~main.b3e0f72f.js",
+  "runtime~main.js.map": "/numberCounter/static/js/runtime~main.b3e0f72f.js.map",
+  "vendors~main.js": "/numberCounter/static/js/vendors~main.3ca81432.chunk.js",
+  "vendors~main.js.map": "/numberCounter/static/js/vendors~main.3ca81432.chunk.js.map",
+  "index.html": "/numberCounter/index.html"
+}
