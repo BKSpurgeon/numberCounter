@@ -152,7 +152,18 @@ view model =
         , timer model
         , encouragement model
         , resetButton model
+        , showLowScore model.currentLowScore
         ]
+
+
+showLowScore : Float -> Html Msg
+showLowScore currentLowScore =
+    div [ class "row" ]
+        [ hr [] []
+        , div [ class "col-12" ]
+            [ text ("Current Record: " ++ String.fromFloat currentLowScore) ]
+        ]
+
 
 
 encouragement : Model -> Html Msg
