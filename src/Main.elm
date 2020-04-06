@@ -101,7 +101,11 @@ update msg model =
             ( { model | timer = model.timer + 1.0 }, Cmd.none )
 
         ResetGame ->
-            ( { initialModel | fastestTime = model.fastestTime }, Cmd.batch[cacheScore model.timer, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber))]  )
+            case model.fastestTime of
+                Nothing ->
+                    ( { initialModel | fastestTime = model.fastestTime }, Cmd.batch[cacheScore model.timer, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber))]  )
+                Just fastestTime ->
+                    ( { initialModel | fastestTime = model.fastestTime }, Cmd.batch[cacheScore model.timer, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber))]  )
 
         NumberPress number ->
             let
