@@ -1,19 +1,20 @@
 -- port module Main exposing (..)
 
+
 module Main exposing (..)
+
 import Browser
 import Browser.Events exposing (onAnimationFrameDelta)
 import Html exposing (Html, br, button, div, h1, hr, p, text)
 import Html.Attributes exposing (class, src)
 import Html.Events exposing (onClick)
+import Json.Encode as E
 import List exposing (..)
 import List.Extra exposing (groupsOf)
 import Random
 import Random.List exposing (shuffle)
 import Time
 
-
-import Json.Encode as E
 
 
 {-
@@ -41,22 +42,26 @@ type alias Model =
     , gameState : GameState
     , currentNumber : Int
     , numbers : List Int
-    , currentLowScore : Float
+    , fastestTime : Maybe Float
     }
 
 
 initialModel : Model
 initialModel =
-    { timer = 0, gameState = NotStarted, currentNumber = 0, numbers = [], currentLowScore = 0 }
+    { timer = 0, gameState = NotStarted, currentNumber = 0, numbers = [], fastestTime = Nothing }
 
 
-init : (Maybe Float) -> ( Model, Cmd Msg )
+init : Maybe Float -> ( Model, Cmd Msg )
 init flags =
-    case flags of 
-       Nothing ->
-         ( {initialModel | currentLowScore = 0 }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
-       Just lowestScore ->
-         ( {initialModel | currentLowScore = lowestScore}, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
+    case flags of
+        Nothing ->
+            ( { initialModel | fastestTime = Nothing }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
+
+        Just lowestScore ->
+            ( { initialModel | fastestTime = Just lowestScore }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
+
+
+
 ---- Configuration ----
 
 
@@ -67,7 +72,7 @@ startingNumber =
 
 endingNumber : Int
 endingNumber =
-    30
+    4
 
 
 
@@ -99,7 +104,7 @@ update msg model =
             ( { model | timer = model.timer + 1.0 }, Cmd.none )
 
         ResetGame ->
-            ({initialModel | currentLowScore = model.currentLowScore}, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)))
+            ( { initialModel | fastestTime = model.fastestTime }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
 
         NumberPress number ->
             let
@@ -124,6 +129,7 @@ update msg model =
 
         RandomizeNumbers numbers ->
             ( { model | numbers = numbers }, Cmd.none )
+
         ChangedLowScore score ->
             ( model, Cmd.none )
 
@@ -151,27 +157,22 @@ view model =
         , showButtons model
         , timer model
         , encouragement model
-        , resetButton model
-        , showLowScore model.currentLowScore
+        , resetButton model               
         ]
-
-
-showLowScore : Float -> Html Msg
-showLowScore currentLowScore =
-    div [ class "row" ]
-        [ hr [] []
-        , div [ class "col-12" ]
-            [ text ("Current Record: " ++ String.fromFloat currentLowScore) ]
-        ]
-
-
 
 encouragement : Model -> Html Msg
 encouragement model =
     let
         encouragingWords =
-            if model.gameState == End then
-               text "Nice work! Try again for a faster time?"
+            if model.gameState == End then                
+                    case model.fastestTime of
+                        Nothing ->
+                           text "Finished: wow! That's a new record!"
+                        Just fastestTime ->
+                           if model.timer / 10 < fastestTime then                
+                            text "Finished: wow! That's a new record!"
+                           else 
+                            text "Finished: nice work! Try again for a faster time?"
 
             else
                 text ""
@@ -218,14 +219,13 @@ timer model =
             else
                 timerString
 
-        addFinishComment =
-            if model.gameState == End then
-                " - Finished!"
-
-            else
-                ""
+        fastestTimeComment = case model.fastestTime of
+                        Nothing ->
+                            ""
+                        Just fastestTime ->                      
+                         " (Record: " ++ String.fromFloat(fastestTime) ++ ")"
     in
-    h1 [] [ text ("Timer: " ++ formattedTimerString ++ addFinishComment) ]
+    h1 [] [ text ("Timer: " ++ formattedTimerString ++ fastestTimeComment) ]
 
 
 split : Int -> List a -> List (List a)
@@ -292,9 +292,8 @@ main =
         , subscriptions = subscriptions
         }
 
+
+
 ---- Ports -----
 -- port cache : E.Value -> Cmd msg
-
-
 -- port existingLowScore : (E.Value -> msg) -> Sub msg
-
