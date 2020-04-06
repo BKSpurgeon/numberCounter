@@ -1,7 +1,5 @@
--- port module Main exposing (..)
+port module Main exposing (..)
 
-
-module Main exposing (..)
 
 import Browser
 import Browser.Events exposing (onAnimationFrameDelta)
@@ -85,7 +83,6 @@ type Msg
     | ResetGame
     | NumberPress Int
     | RandomizeNumbers (List Int)
-    | ChangedLowScore E.Value
 
 
 type GameState
@@ -104,7 +101,7 @@ update msg model =
             ( { model | timer = model.timer + 1.0 }, Cmd.none )
 
         ResetGame ->
-            ( { initialModel | fastestTime = model.fastestTime }, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber)) )
+            ( { initialModel | fastestTime = model.fastestTime }, Cmd.batch[cacheScore model.timer, Random.generate RandomizeNumbers (Random.List.shuffle (range startingNumber endingNumber))]  )
 
         NumberPress number ->
             let
@@ -129,9 +126,6 @@ update msg model =
 
         RandomizeNumbers numbers ->
             ( { model | numbers = numbers }, Cmd.none )
-
-        ChangedLowScore score ->
-            ( model, Cmd.none )
 
 
 
@@ -295,5 +289,5 @@ main =
 
 
 ---- Ports -----
--- port cache : E.Value -> Cmd msg
+port cacheScore : Float-> Cmd msg
 -- port existingLowScore : (E.Value -> msg) -> Sub msg

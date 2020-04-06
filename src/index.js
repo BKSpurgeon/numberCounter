@@ -13,12 +13,11 @@ var app = Elm.Main.init({
   flags: 15.3
 });
 
-/*
+
 // let's come back to the ports after we first sort out: flags
 
-app.ports.cache.subscribe(function(data) {
+app.ports.cacheScore.subscribe(function(data) {
   localStorage.setItem('cache', JSON.stringify(data));
 });
 
-*/
 registerServiceWorker();
