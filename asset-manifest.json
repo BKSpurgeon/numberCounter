@@ -1,11 +1,18 @@
 {
-  "main.css": "/numberCounter/static/css/main.4ded5ffa.chunk.css",
-  "main.js": "/numberCounter/static/js/main.ccb3d9f0.chunk.js",
-  "main.css.map": "/numberCounter/static/css/main.4ded5ffa.chunk.css.map",
-  "main.js.map": "/numberCounter/static/js/main.ccb3d9f0.chunk.js.map",
-  "runtime~main.js": "/numberCounter/static/js/runtime~main.b3e0f72f.js",
-  "runtime~main.js.map": "/numberCounter/static/js/runtime~main.b3e0f72f.js.map",
-  "vendors~main.js": "/numberCounter/static/js/vendors~main.3ca81432.chunk.js",
-  "vendors~main.js.map": "/numberCounter/static/js/vendors~main.3ca81432.chunk.js.map",
-  "index.html": "/numberCounter/index.html"
+  "main.css": "/numberCounter/static/css/main.1e0edaa0.chunk.css",
+  "main.js": "/numberCounter/static/js/main.e83fd87c.chunk.js",
+  "main.js.map": "/numberCounter/static/js/main.e83fd87c.chunk.js.map",
+  "runtime~main.js": "/numberCounter/static/js/runtime~main.4288a6a4.js",
+  "runtime~main.js.map": "/numberCounter/static/js/runtime~main.4288a6a4.js.map",
+  "vendors~main.js": "/numberCounter/static/js/vendors~main.7aa09ec8.chunk.js",
+  "vendors~main.js.map": "/numberCounter/static/js/vendors~main.7aa09ec8.chunk.js.map",
+  "./service-worker.js": "/numberCounter/./service-worker.js",
+  "custom.css": "/numberCounter/custom.css",
+  "favicon.ico": "/numberCounter/favicon.ico",
+  "giphy.png": "/numberCounter/giphy.png",
+  "index.html": "/numberCounter/index.html",
+  "logo.png": "/numberCounter/logo.png",
+  "logo.svg": "/numberCounter/logo.svg",
+  "manifest.json": "/numberCounter/manifest.json",
+  "precache-manifest.36db5247427ff4a661d5016161228396.js": "/numberCounter/precache-manifest.36db5247427ff4a661d5016161228396.js"
 }
