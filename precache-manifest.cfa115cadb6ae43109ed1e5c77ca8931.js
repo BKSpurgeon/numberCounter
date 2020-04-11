@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/numberCounter/giphy.png"
   },
   {
-    "revision": "3b4b98a7ce6a6b67e323108d4ef4ce10",
+    "revision": "83cfa8c223bcbc6796691fa5468b913a",
     "url": "/numberCounter/index.html"
   },
   {
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/numberCounter/manifest.json"
   },
   {
-    "revision": "9907e9ba11f89afedefb",
+    "revision": "47e98cc4b2950e32187a",
     "url": "/numberCounter/static/css/main.1e0edaa0.chunk.css"
   },
   {
-    "revision": "9907e9ba11f89afedefb",
-    "url": "/numberCounter/static/js/main.9907e9ba.chunk.js"
+    "revision": "47e98cc4b2950e32187a",
+    "url": "/numberCounter/static/js/main.47e98cc4.chunk.js"
   },
   {
     "revision": "4288a6a41340618eeb0c",
