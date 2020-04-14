@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/numberCounter/giphy.png"
   },
   {
-    "revision": "965906707daf3823f6b3190c8de2141e",
+    "revision": "a37a675c38e7fadeaebc1ea6caa6c785",
     "url": "/numberCounter/index.html"
   },
   {
