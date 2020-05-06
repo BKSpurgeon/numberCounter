@@ -1,14 +1,7 @@
 .game-btn {   
-   border-radius: 1px;
+   border-radius: 4px;
    padding-top: 33%;
    padding-bottom: 33%;
    padding-right: 33%;
    padding-left: 33%;
 }
-
-
-
-p {
-     font-size: 115px;
-  }
-
