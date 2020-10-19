@@ -13,3 +13,31 @@ img {
   margin: 20px 0;
   max-width: 200px;
 }
+
+
+
+/* On screens that are 992px or less, set the background color to blue */
+
+@media screen and (max-width: 4000px) {
+  .game-btn {
+	font-size: 250%;
+	}
+}
+
+@media screen and (max-width: 992px) {
+  .game-btn {
+	font-size: 250%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+  .game-btn {
+	font-size: 250%;
+	}
+}
+
+@media screen and (max-width: 300px) {
+  .game-btn {
+	font-size: 100%;
+	}
+}
